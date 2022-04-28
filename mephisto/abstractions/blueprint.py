@@ -174,7 +174,7 @@ class BlueprintMixin(ABC):
 
     @classmethod
     def mixin_args_and_state(
-        mixin_cls: Type["BlueprintMixin"], target_cls: Type["Blueprint"]
+        cls: Type["BlueprintMixin"], target_cls: Type["Blueprint"]
     ):
         """
         Magic utility decorator that can be used to inject mixin configurations
@@ -190,12 +190,12 @@ class BlueprintMixin(ABC):
         """
         # Ignore typing on most of this, as mypy is not able to parse what's happening
         @dataclass
-        class MixedInArgsClass(mixin_cls.ArgsMixin, target_cls.ArgsClass):  # type: ignore
+        class MixedInArgsClass(cls.ArgsMixin, target_cls.ArgsClass):  # type: ignore
             pass
 
         @dataclass
         class MixedInSharedStateClass(
-            mixin_cls.SharedStateMixin, target_cls.SharedStateClass  # type: ignore
+            cls.SharedStateMixin, target_cls.SharedStateClass  # type: ignore
         ):
             pass
 
